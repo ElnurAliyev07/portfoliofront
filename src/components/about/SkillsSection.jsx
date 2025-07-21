@@ -268,7 +268,7 @@ const SectionHeader = () => {
       animate={isInView ? "visible" : "hidden"}
       className="text-center mb-12"
     >
-      <h3 className="text-3xl md:text-4xl font-bold mb-4 text-[var(--foreground)]">
+      <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
         Technical Skills
       </h3>
       <p className="text-[var(--muted-foreground)] max-w-2xl mx-auto leading-relaxed">

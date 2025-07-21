@@ -258,26 +258,24 @@ const AboutContent = () => (
 <div className="mb-16 px-4 sm:px-6 lg:px-8">
   {/* Text content */}
   <motion.div
-    initial={{ opacity: 0, x: -30 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-    viewport={{ once: true }}
-    className="text-[var(--muted-foreground)] text-base sm:text-lg leading-relaxed"
-  >
-    I’m a recent graduate in 
-    <span className="text-[var(--primary)] font-semibold"> Information Security</span> from the 
-    Academy of the State Customs Committee. I have a strong foundation in 
-    <span className="text-[var(--primary)] font-semibold"> Python</span> and a passion for building 
-    intelligent <span className="text-[var(--primary)] font-semibold"> AI/ML solutions</span> and 
-    modern full-stack applications. My work focuses on 
-    <span className="text-[var(--primary)] font-semibold"> computer vision</span> and 
-    <span className="text-[var(--primary)] font-semibold"> facial recognition systems</span>, combining 
-    backend logic with advanced AI features to build practical, real-world solutions. I’m currently 
-    looking for opportunities to grow as a 
-    <span className="text-[var(--primary)] font-semibold"> Machine Learning Engineer</span> and 
-    <span className="text-[var(--primary)] font-semibold"> Backend Developer</span> — collaborating 
-    with talented teams and contributing to meaningful, forward-thinking projects.
-  </motion.div>
+  initial={{ opacity: 0, x: -30 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+  viewport={{ once: true }}
+  className="space-y-4"
+>
+  <p className="text-base text-muted-foreground leading-relaxed"> 
+    I'm a graduate in Information Security from the Academy of the State Customs Committee. 
+    I have a solid background in Python and specialize in building practical AI/ML solutions and full-stack applications.
+  </p>
+  <p className="text-base text-muted-foreground leading-relaxed">
+    Over time, I've focused on developing intelligent systems using tools like Django, React, and machine learning frameworks. 
+    My key areas of interest include computer vision, facial recognition, and creating useful, real-world applications that combine backend logic with smart AI features.
+  </p>
+  <p className="text-base text-muted-foreground leading-relaxed">
+    I'm currently seeking opportunities where I can apply my skills in AI/ML and backend development, collaborate with others on meaningful projects, and continue learning and growing as a developer.
+  </p>
+</motion.div>
 
   {/* Profile Picture and Stats side by side */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 items-center">

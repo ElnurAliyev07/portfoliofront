@@ -39,7 +39,7 @@ const STATS_DATA = [
     suffix: '+', 
     color: 'from-blue-500 to-cyan-500',
     icon: '⚡',
-    description: 'Languages & Frameworks'
+    description: 'Languages& Frameworks'
   },
   { 
     value: 10, 
@@ -207,12 +207,12 @@ const SectionHeader = () => (
     viewport={{ once: true }}
     className="text-center mb-12"
   >
-    <h3
-      className="text-2xl md:text-3xl font-bold mb-4"
-      style={{ color: '#000000' }}
-    >
-      Professional Milestones
-    </h3>
+<h3
+  className="text-2xl md:text-3xl font-bold mb-4 text-black dark:text-white"
+>
+  Professional Milestones
+</h3>
+
     <p className="text-[var(--muted-foreground)] max-w-xl mx-auto">
       Key achievements and metrics that define my journey in technology and development
     </p>
