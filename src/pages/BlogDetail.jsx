@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { ArrowLeft, Calendar, Clock, User, Eye, Sparkles, TrendingUp, Heart, Share2, Home } from 'lucide-react';
 import { getBlogBySlug, likeBlogPost } from '../api/blogApi';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://portfoliobackend-n9dv.onrender.com';
 
 // Custom hook for blog data
 const useBlogData = (slug) => {

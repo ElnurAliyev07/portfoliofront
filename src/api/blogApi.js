@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api/v1/blog/'; // Adjust if backend is on a different host (e.g., 'http://localhost:8000/api/v1/blog/')
+const API_URL = 'https://portfoliobackend-n9dv.onrender.com/api/v1/blog/'; // Adjust if backend is on a different host (e.g., 'http://localhost:8000/api/v1/blog/')
 
 
 export async function getBlogPosts() {

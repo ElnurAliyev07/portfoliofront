@@ -3,7 +3,7 @@ import { Calendar, Clock, User, Eye, ArrowRight, Sparkles, TrendingUp, Heart, Fi
 import { Link } from 'react-router-dom';
 import { getBlogPosts, likeBlogPost } from '../api/blogApi';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://portfoliobackend-n9dv.onrender.com';
 
 function useIntersectionObserver(options = {}) {
   const [isIntersecting, setIsIntersecting] = useState(false);

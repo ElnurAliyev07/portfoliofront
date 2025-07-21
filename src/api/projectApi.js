@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api/v1/project/';
+const API_URL = 'https://portfoliobackend-n9dv.onrender.com/api/v1/project/';
 
 export async function getProjects() {
   try {

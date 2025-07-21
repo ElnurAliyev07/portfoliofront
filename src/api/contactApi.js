@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:8000/api/v1/contact/'; // Adjust if your backend runs on a different host/port
+const API_URL = 'https://portfoliobackend-n9dv.onrender.com/api/v1/contact/'; // Adjust if your backend runs on a different host/port
 
 export const sendContactMessage = async (formData) => {
   try {

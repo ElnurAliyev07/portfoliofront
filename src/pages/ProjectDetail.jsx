@@ -16,7 +16,7 @@ import {
   Github
 } from 'lucide-react';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://portfoliobackend-n9dv.onrender.com';
 
 // Custom hook for project data
 const useProjectData = (projectId) => {

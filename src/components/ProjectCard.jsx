@@ -3,7 +3,7 @@ import { Github, ExternalLink, Star, Calendar, Users, Zap, Eye } from 'lucide-re
 import { Link } from 'react-router-dom';
 import { starProject } from '../api/projectApi';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = 'https://portfoliobackend-n9dv.onrender.com';
 
 // Intersection Observer Hook
 function useIntersectionObserver(options = {}) {
