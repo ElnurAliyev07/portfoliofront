@@ -1,43 +1,44 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, memo, useCallback } from "react"
 
-// Animation variants
+// Animation variants - reduced complexity
 const containerVariants = {
-  initial: { opacity: 0, scale: 0.9 },
+  initial: { opacity: 0, scale: 0.95 },
   animate: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.8,
+      duration: 0.5,
       ease: "easeOut",
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 }
 
 const contentVariants = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 15 },
   animate: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
 }
 
+// Reduced floating animation frequency and complexity
 const floatingElementVariants = {
   animate: {
-    y: [0, -10, 0],
+    y: [0, -8, 0],
     transition: {
-      duration: 3,
-      repeat: Number.POSITIVE_INFINITY,
+      duration: 4, // Longer duration = less frequent animation
+      repeat: Infinity,
       ease: "easeInOut",
     },
   },
 }
 
-// Floating elements data - dark mode uyğun rənglər
+// Floating elements data - reduced number for better performance
 const FLOATING_ELEMENTS = [
   {
     id: 1,
@@ -47,48 +48,35 @@ const FLOATING_ELEMENTS = [
   {
     id: 2,
     className: "absolute bottom-4 left-4 w-2 h-2 bg-pink-500 dark:bg-pink-400 rounded-full",
-    delay: 1,
-  },
-  {
-    id: 3,
-    className: "absolute top-1/2 left-4 w-1 h-1 bg-indigo-500 dark:bg-indigo-400 rounded-full",
     delay: 2,
   },
   {
-    id: 4,
-    className: "absolute top-8 left-8 w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full",
-    delay: 1.5,
-  },
-  {
-    id: 5,
-    className: "absolute bottom-8 right-8 w-1.5 h-1.5 bg-emerald-500 dark:bg-emerald-400 rounded-full",
-    delay: 0.5,
+    id: 3,
+    className: "absolute top-1/2 left-4 w-1.5 h-1.5 bg-purple-500 dark:bg-purple-400 rounded-full",
+    delay: 1,
   },
 ]
 
 const PROFILE_BADGES = [
   {
     text: "Fresh Graduate",
-    color:
-      "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700/50",
+    color: "bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-700/50",
     icon: "🎓",
   },
   {
     text: "ML Enthusiast",
-    color:
-      "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50",
+    color: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700/50",
     icon: "🤖",
   },
   {
     text: "Problem Solver",
-    color:
-      "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50",
+    color: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50",
     icon: "💡",
   },
 ]
 
-// Components
-const FloatingElement = ({ element }) => (
+// Memoized components to prevent unnecessary re-renders
+const FloatingElement = memo(({ element }) => (
   <motion.div
     key={element.id}
     className={element.className}
@@ -98,58 +86,62 @@ const FloatingElement = ({ element }) => (
       animationDelay: `${element.delay}s`,
     }}
   />
-)
+))
 
-const ProfileBadge = ({ badge, index }) => (
+const ProfileBadge = memo(({ badge, index }) => (
   <motion.div
     key={badge.text}
-    initial={{ opacity: 0, scale: 0.8 }}
+    initial={{ opacity: 0, scale: 0.9 }}
     whileInView={{ opacity: 1, scale: 1 }}
-    whileHover={{ scale: 1.05 }}
+    whileHover={{ scale: 1.03 }} // Reduced scale for better performance
     transition={{
-      duration: 0.3,
-      delay: index * 0.1,
+      duration: 0.2, // Faster transitions
+      delay: index * 0.05, // Reduced stagger
       ease: "easeOut",
     }}
-    viewport={{ once: true }}
-    className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 ${badge.color} cursor-default transition-all duration-300`}
+    viewport={{ once: true, margin: "20px" }} // Reduced viewport margin
+    className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1 ${badge.color} cursor-default`}
   >
     <span>{badge.icon}</span>
     <span>{badge.text}</span>
   </motion.div>
-)
+))
 
-const ProfileImage = ({ image, isLoaded, setIsLoaded }) => (
-  <div className="relative w-full max-w-[20rem] h-80 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500/20 via-purple-500/10 to-pink-500/20 dark:from-blue-400/20 dark:via-purple-400/10 dark:to-pink-400/20 border-2 border-blue-500/30 dark:border-blue-400/30 shadow-2xl dark:shadow-black/40 sm:w-80">
-    {/* Loading placeholder */}
-    {!isLoaded && (
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-pink-500/10 dark:from-blue-400/10 dark:to-pink-400/10 animate-pulse flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-blue-500/30 dark:border-blue-400/30 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin"></div>
-      </div>
-    )}
+const ProfileImage = memo(({ image, isLoaded, setIsLoaded }) => {
+  const handleImageLoad = useCallback(() => {
+    setIsLoaded(true)
+  }, [setIsLoaded])
 
-    {/* Profile Image */}
-    <motion.img
-      src={image}
-      alt="Profile"
-      className={`w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-      loading="lazy"
-      onLoad={() => setIsLoaded(true)}
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.3 }}
-    />
+  return (
+    <div className="relative w-full max-w-[20rem] h-80 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500/20 via-purple-500/10 to-pink-500/20 dark:from-blue-400/20 dark:via-purple-400/10 dark:to-pink-400/20 border-2 border-blue-500/30 dark:border-blue-400/30 shadow-2xl dark:shadow-black/40 sm:w-80">
+      {/* Loading placeholder - simplified */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-pink-500/10 dark:from-blue-400/10 dark:to-pink-400/10 flex items-center justify-center">
+          <div className="w-12 h-12 border-3 border-blue-500/30 dark:border-blue-400/30 border-t-blue-500 dark:border-t-blue-400 rounded-full animate-spin"></div>
+        </div>
+      )}
 
-    {/* Floating Elements */}
-    {FLOATING_ELEMENTS.map((element) => (
-      <FloatingElement key={element.id} element={element} />
-    ))}
+      {/* Profile Image - removed scale animation on hover for better performance */}
+      <img
+        src={image}
+        alt="Profile"
+        className={`w-full h-full object-cover transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        loading="lazy"
+        onLoad={handleImageLoad}
+      />
 
-    {/* Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-  </div>
-)
+      {/* Floating Elements - only render when image is loaded */}
+      {isLoaded && FLOATING_ELEMENTS.map((element) => (
+        <FloatingElement key={element.id} element={element} />
+      ))}
 
-const ProfileInfo = () => (
+      {/* Simplified gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-200" />
+    </div>
+  )
+})
+
+const ProfileInfo = memo(() => (
   <motion.div variants={contentVariants} className="mt-6 text-center space-y-4">
     <div className="space-y-2">
       <h4 className="font-bold text-xl text-gray-900 dark:text-gray-100">🎓 Information Security Graduate</h4>
@@ -166,11 +158,11 @@ const ProfileInfo = () => (
       ))}
     </div>
 
-    {/* Additional Info */}
+    {/* Additional Info - simplified animation */}
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
       viewport={{ once: true }}
       className="pt-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm"
     >
@@ -178,7 +170,7 @@ const ProfileInfo = () => (
       <p className="text-sm font-medium text-gray-900 dark:text-gray-100">🚀 Ready for new opportunities</p>
     </motion.div>
   </motion.div>
-)
+))
 
 // Main Component
 const ProfilePictureSection = () => {
@@ -190,14 +182,14 @@ const ProfilePictureSection = () => {
       variants={containerVariants}
       initial="initial"
       whileInView="animate"
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "50px" }} // Reduced margin
       className="relative group flex justify-center"
     >
-      {/* Background Glow Effect */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-pink-500/20 dark:from-blue-400/20 dark:to-pink-400/20 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+      {/* Simplified background glow effect */}
+      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 dark:from-blue-400/10 dark:to-pink-400/10 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300" />
 
-      {/* Main Container */}
-      <div className="relative overflow-hidden rounded-2xl shadow-2xl dark:shadow-black/40 bg-gradient-to-br from-white/90 to-gray-50/70 dark:from-gray-900/90 dark:to-gray-800/70 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all duration-500 w-full max-w-lg">
+      {/* Main Container - reduced backdrop effects */}
+      <div className="relative overflow-hidden rounded-2xl shadow-xl dark:shadow-black/30 bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-500/30 dark:hover:border-blue-400/30 transition-colors duration-300 w-full max-w-lg">
         <div className="p-6 flex flex-col items-center">
           <ProfileImage image={image} isLoaded={isLoaded} setIsLoaded={setIsLoaded} />
           <ProfileInfo />
@@ -210,4 +202,10 @@ const ProfilePictureSection = () => {
   )
 }
 
-export default ProfilePictureSection
+// Add display names for better debugging
+FloatingElement.displayName = 'FloatingElement'
+ProfileBadge.displayName = 'ProfileBadge'
+ProfileImage.displayName = 'ProfileImage'
+ProfileInfo.displayName = 'ProfileInfo'
+
+export default memo(ProfilePictureSection)
