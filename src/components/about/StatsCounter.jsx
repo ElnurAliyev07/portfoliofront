@@ -34,7 +34,7 @@ const STATS_DATA = [
     description: (
   <>
     Information <br />
-    Security Degree
+    Security
   </>
 )
   },

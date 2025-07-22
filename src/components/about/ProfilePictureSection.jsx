@@ -159,16 +159,26 @@ const ProfileInfo = memo(() => (
     </div>
 
     {/* Additional Info - simplified animation */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.3, delay: 0.2 }}
-      viewport={{ once: true }}
-      className="pt-4 border-t border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80 rounded-lg backdrop-blur-sm"
-    >
-      <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">🌍 Based in Baku, Azerbaijan</p>
-      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">🚀 Ready for new opportunities</p>
-    </motion.div>
+   <motion.div
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.3, delay: 0.2 }}
+  viewport={{ once: true }}
+  className="
+    px-4 py-2 border-t border-gray-200 dark:border-gray-700 
+    bg-white/80 dark:bg-gray-800/80 rounded-xl backdrop-blur-sm
+    flex flex-col items-center justify-start max-w-xs mx-auto
+  "
+  style={{ minHeight: '4rem' }}
+>
+  <p className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-0.5">
+    🌍 Based in Baku, Azerbaijan
+  </p>
+  <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+    🚀 Ready for new opportunities
+  </p>
+</motion.div>
+
   </motion.div>
 ))
 
