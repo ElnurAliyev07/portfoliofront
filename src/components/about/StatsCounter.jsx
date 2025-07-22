@@ -39,15 +39,26 @@ const STATS_DATA = [
     suffix: '+', 
     color: 'from-blue-500 to-cyan-500',
     icon: '⚡',
-    description: 'Languages & Frameworks'
+    description: 'Languages& Frameworks'
   },
   { 
     value: 10, 
-    label: 'ML Projects', 
+    label: (
+  <>
+    ML <br />
+    Projects
+  </>
+),
     suffix: '+', 
     color: 'from-green-500 to-emerald-500',
     icon: '🤖',
-    description: 'AI/ML Applications'
+    description: (
+  <>
+    AI/ML <br />
+    Applications
+  </>
+)
+
   },
   { 
     value: 2, 
@@ -113,7 +124,7 @@ const StatCard = memo(({ stat, index }) => {
   const isInView = useInView(ref, { 
     once: true, 
     threshold: 0.2,
-    margin: "0px 0px -50px 0px"
+    margin: "0px 0px -50px 0px" // Trigger earlier
   });
   const count = useCounter(stat.value, 1500, isInView);
   const [isHovered, setIsHovered] = useState(false);
@@ -121,6 +132,7 @@ const StatCard = memo(({ stat, index }) => {
   const handleMouseEnter = useCallback(() => setIsHovered(true), []);
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
   
+  // Memoize gradient ID to prevent re-creation
   const gradientId = useMemo(() => `gradient-${index}`, [index]);
   
   return (
@@ -128,28 +140,34 @@ const StatCard = memo(({ stat, index }) => {
       ref={ref}
       variants={itemVariants}
       whileHover={{ 
-        scale: 1.02,
+        scale: 1.02, // Reduced scale
         y: -2,
         transition: { duration: 0.2 }
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative flex-1"
+      className="group relative"
     >
+      {/* Simplified background glow */}
       <div className={`absolute -inset-1 bg-gradient-to-r ${stat.color} rounded-xl blur opacity-15 group-hover:opacity-25 transition-opacity duration-300`} />
       
-      <div className="relative text-center p-4 sm:p-6 rounded-xl bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-500/20 dark:hover:border-blue-400/20 transition-colors duration-300 min-h-[180px] flex flex-col justify-between">
+      {/* Main Card - reduced backdrop effects */}
+      <div className="relative text-center p-6 rounded-xl bg-white/90 dark:bg-gray-900/90 border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-500/20 dark:hover:border-blue-400/20 transition-colors duration-300">
+        {/* Icon - simplified animation */}
         <motion.div
           className="text-3xl mb-3"
-          animate={{ scale: isHovered ? 1.1 : 1 }}
+          animate={{ 
+            scale: isHovered ? 1.1 : 1,
+          }}
           transition={{ duration: 0.2 }}
         >
           {stat.icon}
         </motion.div>
         
+        {/* Counter */}
         <div className={`bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
           <motion.div 
-            className="text-2xl sm:text-3xl md:text-[1.725rem] font-bold"
+            className="text-3xl md:text-[1.725rem] font-bold"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -159,12 +177,13 @@ const StatCard = memo(({ stat, index }) => {
           </motion.div>
         </div>
         
+        {/* Label */}
         <div className="space-y-1">
-          <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 text-center line-clamp-1">
+          <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 text-center">
             {stat.label}
           </div>
           <div
-            className={`text-xs text-gray-600 dark:text-gray-400 transition-opacity duration-200 line-clamp-2 ${
+            className={`text-xs text-gray-600 dark:text-gray-400 transition-opacity duration-200 ${
               isHovered ? 'opacity-100' : 'opacity-70'
             }`}
           >
@@ -172,6 +191,7 @@ const StatCard = memo(({ stat, index }) => {
           </div>
         </div>
         
+        {/* Simplified progress ring */}
         <div className="absolute top-2 right-2 w-8 h-8">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 32 32">
             <circle
@@ -228,10 +248,11 @@ const SectionHeader = memo(() => (
 
 // Main Component
 const StatsCounter = () => {
+  // Memoize the stats data to prevent re-creation
   const statsData = useMemo(() => STATS_DATA, []);
 
   return (
-    <section className="py-12 px-4 bg-gradient-to-br from-gray-50/50 to-transparent dark:from-gray-800/10 dark:to-transparent rounded-2xl">
+    <section className="py-16 px-4 bg-gradient-to-br from-gray-50/50 to-transparent dark:from-gray-800/10 dark:to-transparent rounded-2xl">
       <div className="max-w-6xl mx-auto">
         <SectionHeader />
         
@@ -240,15 +261,18 @@ const StatsCounter = () => {
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
         >
           {statsData.map((stat, index) => (
-            <div key={stat.label} className="flex">
-              <StatCard stat={stat} index={index} />
-            </div>
+            <StatCard 
+              key={stat.label} 
+              stat={stat} 
+              index={index}
+            />
           ))}
         </motion.div>
         
+        {/* Simplified additional info */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
