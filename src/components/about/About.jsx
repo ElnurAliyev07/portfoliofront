@@ -125,25 +125,25 @@ const ExperienceCard = ({ experience, index }) => {
         <div className="p-6 rounded-xl bg-[var(--background)]/80 backdrop-blur-sm border border-[var(--border)]/50 hover:border-purple-500/30 transition-all duration-300">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
-              <h3 className="text-2xl font-semibold mb-2">
+              <h3 className="text-xl sm:text-2xl font-semibold mb-2">
                 {experience.type === "education" ? experience.title : experience.position}
               </h3>
               <div className="flex items-center gap-2 mb-2">
                 {experience.type === "education" ? (
-                  <span className="text-purple-500 font-medium">{experience.institution}</span>
+                  <span className="text-sm sm:text-base text-purple-500 font-medium">{experience.institution}</span>
                 ) : (
                   <a
                     href={experience.companyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-purple-500 hover:text-purple-600 font-medium flex items-center gap-1"
+                    className="text-sm sm:text-base text-purple-500 hover:text-purple-600 font-medium flex items-center gap-1"
                   >
                     {experience.company}
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
               </div>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-[var(--muted-foreground)]">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs sm:text-sm text-[var(--muted-foreground)]">
                 <div className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(experience.startDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })} -
@@ -162,12 +162,12 @@ const ExperienceCard = ({ experience, index }) => {
             </span>
           </div>
 
-          <p className="text-[var(--muted-foreground)] mb-4 leading-relaxed">{experience.description}</p>
+          <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mb-4 leading-relaxed">{experience.description}</p>
 
           {/* Toggle Button */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-sm text-purple-500 hover:text-purple-600 font-medium flex items-center gap-2 mb-4 transition-colors"
+            className="text-xs sm:text-sm text-purple-500 hover:text-purple-600 font-medium flex items-center gap-2 mb-4 transition-colors"
           >
             {isExpanded ? "Hide Details" : "Show Details"}
             <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.3 }}>
@@ -187,12 +187,12 @@ const ExperienceCard = ({ experience, index }) => {
           >
             <div className="space-y-4 pb-4">
               <div>
-                <h4 className="font-medium text-sm mb-2">
+                <h4 className="font-medium text-xs sm:text-sm mb-2">
                   {experience.type === "education" ? "Key Achievements:" : "Key Responsibilities:"}
                 </h4>
                 <ul className="space-y-2">
                   {experience.achievements.map((achievement, i) => (
-                    <li key={i} className="text-sm text-[var(--muted-foreground)] flex items-start gap-2">
+                    <li key={i} className="text-xs sm:text-sm text-[var(--muted-foreground)] flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
                       {achievement}
                     </li>
@@ -202,7 +202,7 @@ const ExperienceCard = ({ experience, index }) => {
 
               {/* Technologies */}
               <div>
-                <h4 className="font-medium text-sm mb-2">Key Skills:</h4>
+                <h4 className="font-medium text-xs sm:text-sm mb-2">Key Skills:</h4>
                 <div className="flex flex-wrap gap-2 p-3 rounded-lg border border-purple-500/20 bg-purple-500/5">
                   {experience.technologies.map((tech) => (
                     <span

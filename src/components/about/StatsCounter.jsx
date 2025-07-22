@@ -31,7 +31,12 @@ const STATS_DATA = [
     suffix: '', 
     color: 'from-indigo-500 to-purple-500',
     icon: '🎓',
-    description: 'Information Security Degree'
+    description: (
+  <>
+    Information <br />
+    Security Degree
+  </>
+)
   },
   { 
     value: 15, 
