@@ -144,7 +144,7 @@ const SocialLink = ({ icon: Icon, href, label, color, hoverColor, index }) => {
     <motion.button
       onClick={handleClick}
       className={`
-      w-16 h-16 rounded-full 
+      w-14 h-14 sm:w-16 sm:h-16 rounded-full 
       bg-gradient-to-r ${color} ${hoverColor}
       flex items-center justify-center
       transition-all duration-300 shadow-lg hover:shadow-xl
@@ -161,7 +161,7 @@ const SocialLink = ({ icon: Icon, href, label, color, hoverColor, index }) => {
       whileTap={{ scale: 0.95 }}
       aria-label={`Visit ${label} profile`}
     >
-      <Icon className="w-10 h-10 text-white drop-shadow-lg" />
+      <Icon className="w-10 h-10 sm:w-12 sm:h-12 text-white drop-shadow-lg" />
     </motion.button>
   )
 }
@@ -180,7 +180,7 @@ const ActionButton = ({ text, icon: Icon, action, target, variant = "primary", d
   }, [action, target])
 
   const baseClasses = `
-  px-8 py-4 text-lg font-semibold rounded-xl 
+  px-4 py-3 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold rounded-xl 
   flex items-center justify-center
   transition-all duration-300 shadow-lg hover:shadow-xl
   focus:outline-none focus:ring-2 focus:ring-white/50
@@ -213,7 +213,7 @@ const ActionButton = ({ text, icon: Icon, action, target, variant = "primary", d
         whileTap={{ scale: 0.95 }}
         aria-label={text}
       >
-        <Icon className="w-5 h-5 mr-3" />
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
         {text}
       </motion.a>
     )
@@ -230,7 +230,7 @@ const ActionButton = ({ text, icon: Icon, action, target, variant = "primary", d
       whileTap={{ scale: 0.95 }}
       aria-label={text}
     >
-      <Icon className="w-5 h-5 mr-3" />
+      <Icon className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
       {text}
     </motion.button>
   )
@@ -280,7 +280,7 @@ const HeroContent = ({ opacity }) => {
   const { content, socialLinks } = HERO_CONFIG
 
   return (
-    <motion.div style={{ opacity }} className="relative z-20 text-center px-6 max-w-6xl mx-auto">
+    <motion.div style={{ opacity }} className="relative z-20 text-center px-4 sm:px-6 max-w-4xl mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -290,11 +290,11 @@ const HeroContent = ({ opacity }) => {
         }}
         className="
         relative bg-black/10 rounded-3xl border-2 border-gray-800/30
-        p-8 md:p-12 backdrop-blur-sm shadow-2xl
+        p-6 sm:p-8 md:p-10 backdrop-blur-sm shadow-2xl
       "
       >
         {/* Main heading */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
           <AnimatedText
             text={content.name}
             className="
@@ -314,16 +314,16 @@ const HeroContent = ({ opacity }) => {
             duration: HERO_CONFIG.animation.duration,
             delay: 0.3,
           }}
-          className="space-y-4 mb-8"
+          className="space-y-3 sm:space-y-4 mb-6 sm:mb-8"
         >
           <AnimatedText
             text={content.title}
-            className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/90 drop-shadow-lg"
+            className="text-lg sm:text-xl md:text-2xl font-semibold text-white/90 drop-shadow-lg"
             staggerDelay={0.08}
             initialDelay={0.4}
           />
           <motion.p
-            className="text-lg text-white/80 max-w-3xl mx-auto drop-shadow-lg leading-relaxed"
+            className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto drop-shadow-lg leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
@@ -340,7 +340,7 @@ const HeroContent = ({ opacity }) => {
             duration: HERO_CONFIG.animation.duration,
             delay: 0.5,
           }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-10"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-10"
         >
           <ActionButton {...content.buttons.primary} variant="primary" delay={0} />
           <ActionButton {...content.buttons.secondary} variant="secondary" delay={0.1} />
@@ -354,7 +354,7 @@ const HeroContent = ({ opacity }) => {
             duration: HERO_CONFIG.animation.duration,
             delay: 0.7,
           }}
-          className="flex justify-center space-x-8"
+          className="flex justify-center space-x-4 sm:space-x-6"
           role="list"
           aria-label="Social media links"
         >
